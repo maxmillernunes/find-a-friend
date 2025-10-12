@@ -1,0 +1,8 @@
+/node_modules
+
+# PG
+/data
+
+# ENV
+.env
+/generated/prisma

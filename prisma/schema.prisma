@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Org {
+  id        String    @id @default(uuid())
+  owner     String
+  orgName   String    @map("org_name")
+  email     String    @unique
+  password  String
+  phone     String
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  pets        Pet[]
+  org_address OrgAddress[]
+
+  @@map("orgs")
+}
+
+model OrgAddress {
+  id           String @id @default(uuid())
+  street       String
+  number       String
+  neighborhood String
+  city         String
+  state        String
+  cep          String
+  complement   String
+
+  org   Org    @relation(fields: [orgId], references: [id])
+  orgId String @map("org_id")
+
+  @@map("org_address")
+}
+
+enum LevelEnergy {
+  LOW
+  MEDIUM
+  HIGH
+  VERY_HIGH
+}
+
+enum PetSize {
+  VERY_SMALL
+  SMALL
+  MEDIUM
+  MAXI
+  GIANT
+}
+
+model Pet {
+  id                   String      @id @default(uuid())
+  name                 String
+  description          String
+  levelEnergy          LevelEnergy @map("level_energy")
+  environmentType      String      @map("environment_type")
+  size                 PetSize
+  latitude             Decimal
+  longitude            Decimal
+  adoptionRequirements String      @map("adoption_requirements")
+  createdAt            DateTime    @default(now()) @map("created_at")
+  updatedAt            DateTime?   @updatedAt @map("updated_at")
+
+  org         Org          @relation(fields: [orgId], references: [id])
+  orgId       String       @map("org_id")
+  pet_images  PetImages[]
+  new_fathers NewFathers[]
+
+  @@map("pets")
+}
+
+model PetImages {
+  id       String @id @default(uuid())
+  fileName String @map("filename")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  pet   Pet    @relation(fields: [petId], references: [id])
+  petId String @map("pet_id")
+
+  @@map("pet_images")
+}
+
+model NewFathers {
+  id    String @id @default(uuid())
+  name  String
+  email String @unique
+  phone String
+
+  pet   Pet    @relation(fields: [petId], references: [id])
+  petId String @map("pet_id")
+
+  @@map("new_fathers")
+}

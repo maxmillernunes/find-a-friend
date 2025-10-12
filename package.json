@@ -1,0 +1,23 @@
+{
+  "name": "find-a-friend-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.17.1",
+    "fastify": "^5.6.1",
+    "prisma": "^6.17.1"
+  }
+}
