@@ -1,3 +1,4 @@
+import { CreateOrgUseCase } from '@/use-case/create-org'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 
@@ -8,19 +9,21 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     email: z.email(),
     password: z.string().min(8),
     phone: z.string(),
-
-    street: z.string(),
-    number: z.string(),
-    neighborhood: z.string(),
-    city: z.string(),
-    state: z.string(),
-    cep: z.string(),
-    complement: z.string().optional(),
+    address: z.object({
+      street: z.string(),
+      number: z.string(),
+      neighborhood: z.string(),
+      city: z.string(),
+      state: z.string(),
+      cep: z.string(),
+      complement: z.string().optional(),
+    }),
   })
 
   const data = createOrgSchema.parse(request.body)
 
-  console.log(data)
+  const createOrgUseCase = new CreateOrgUseCase()
+  await createOrgUseCase.execute(data)
 
   return reply.status(201).send()
 }
