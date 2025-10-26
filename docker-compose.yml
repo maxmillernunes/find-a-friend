@@ -1,13 +1,38 @@
 services:
   postgres:
     container_name: find-a-friend-pg
-    image: bitnami/postgresql
+    image: postgres:16-alpine
     ports:
-      - 5432:5432
-    environment:
-      POSTGRES_USER: docker
-      POSTGRES_PASSWORD: docker
-      POSTGRES_DB: nest-clean
-      PGDATA: /data/postgres
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    env_file:
+      - .env
     volumes:
-      - ./data/pg:/data/postgres
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - find-a-friend
+
+  api:
+    container_name: find-a-friend-api
+    build:
+      context: .
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - find-a-friend
+
+networks:
+  find-a-friend:
+    driver: bridge
+
+volumes:
+  pg_data:

@@ -1,3 +1,4 @@
+import { prisma } from '@/lib/prisma'
 import type { Org } from '@prisma/client'
 
 interface CreateOrgUseCaseRequest {
@@ -32,6 +33,10 @@ export class CreateOrgUseCase {
     phone,
     address,
   }: CreateOrgUseCaseRequest): Promise<CreateOrgUseCaseResponse> {
+    const org = await prisma.org.findMany()
+
+    console.log({ org })
+
     console.log({
       owner,
       orgName,

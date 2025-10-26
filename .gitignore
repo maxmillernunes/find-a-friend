@@ -6,3 +6,6 @@
 # ENV
 .env
 /generated/prisma
+
+# build
+/dist

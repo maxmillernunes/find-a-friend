@@ -5,13 +5,16 @@
   "main": "",
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
-    "start": "node build/server.js"
+    "start": "node dist/server.mjs",
+    "build": "tsup-node"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^24.5.2",
+    "prisma": "^6.17.1",
+    "tsup": "^8.5.0",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   },
@@ -19,7 +22,6 @@
     "@prisma/client": "^6.17.1",
     "dotenv": "^17.2.3",
     "fastify": "^5.6.1",
-    "prisma": "^6.17.1",
     "zod": "^4.1.12"
   }
 }
