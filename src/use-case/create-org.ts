@@ -1,5 +1,8 @@
-import { prisma } from '@/lib/prisma'
+import { hash } from 'bcryptjs'
 import type { Org } from '@prisma/client'
+import type { OrgsRepository } from '@/repositories/orgs-repository'
+import { PASSWORD_ROUNDS } from '@/utils/constants'
+import type { OrgAddressesRepository } from '@/repositories/org-addresses-repository'
 
 interface CreateOrgUseCaseRequest {
   owner: string
@@ -23,7 +26,10 @@ interface CreateOrgUseCaseResponse {
 }
 
 export class CreateOrgUseCase {
-  constructor() {}
+  constructor(
+    private orgsRepository: OrgsRepository,
+    private orgAddressesRepository: OrgAddressesRepository
+  ) {}
 
   async execute({
     owner,
@@ -33,19 +39,43 @@ export class CreateOrgUseCase {
     phone,
     address,
   }: CreateOrgUseCaseRequest): Promise<CreateOrgUseCaseResponse> {
-    const org = await prisma.org.findMany()
+    const userWithSameEmail = await this.orgsRepository.findByEmail(email)
 
-    console.log({ org })
+    if (
+      userWithSameEmail &&
+      userWithSameEmail.orgName.toLowerCase() === orgName.toLowerCase()
+    ) {
+      throw new Error(`Org with this name already exists`)
+    }
 
-    console.log({
+    if (userWithSameEmail) {
+      throw new Error(`Org with this email already exists`)
+    }
+
+    const passwordHash = await hash(password, PASSWORD_ROUNDS)
+
+    const org = await this.orgsRepository.create({
       owner,
       orgName,
       email,
-      password,
+      password: passwordHash,
       phone,
-      address,
     })
 
-    return {} as unknown as CreateOrgUseCaseResponse
+    const { cep, city, neighborhood, number, state, street, complement } =
+      address
+
+    await this.orgAddressesRepository.create({
+      cep,
+      city,
+      complement,
+      neighborhood,
+      number,
+      state,
+      street,
+      orgId: org.id,
+    })
+
+    return { org }
   }
 }

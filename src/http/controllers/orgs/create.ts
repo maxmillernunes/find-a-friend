@@ -1,4 +1,5 @@
 import { CreateOrgUseCase } from '@/use-case/create-org'
+import { makeCreateOrgUseCase } from '@/use-case/factories/make-create-org-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 
@@ -20,10 +21,17 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     }),
   })
 
-  const data = createOrgSchema.parse(request.body)
+  try {
+    const data = createOrgSchema.parse(request.body)
 
-  const createOrgUseCase = new CreateOrgUseCase()
-  await createOrgUseCase.execute(data)
+    const createOrgUseCase = makeCreateOrgUseCase()
 
-  return reply.status(201).send()
+    await createOrgUseCase.execute(data)
+
+    return reply.status(201).send()
+  } catch (error) {
+    return reply.status(400).send({
+      message: error.message,
+    })
+  }
 }
