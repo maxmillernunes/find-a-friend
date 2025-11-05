@@ -21,17 +21,11 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     }),
   })
 
-  try {
-    const data = createOrgSchema.parse(request.body)
+  const data = createOrgSchema.parse(request.body)
 
-    const createOrgUseCase = makeCreateOrgUseCase()
+  const createOrgUseCase = makeCreateOrgUseCase()
 
-    await createOrgUseCase.execute(data)
+  await createOrgUseCase.execute(data)
 
-    return reply.status(201).send()
-  } catch (error) {
-    return reply.status(400).send({
-      message: error.message,
-    })
-  }
+  return reply.status(201).send()
 }
