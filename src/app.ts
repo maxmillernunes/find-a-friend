@@ -1,11 +1,20 @@
 import fastify from 'fastify'
-import { orgsRoutes } from './http/controllers/orgs/routes'
 import z, { ZodError } from 'zod'
+import fastifyJwt from '@fastify/jwt'
+
 import { env } from './env'
 import { AppException } from './shared/errors/app-exception'
+import { orgsRoutes } from './http/controllers/orgs/routes'
 import { ErrorsCode } from './shared/errors/errors-code'
 
 export const app = fastify()
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+  sign: {
+    expiresIn: '10m',
+  },
+})
 
 app.register(orgsRoutes)
 
