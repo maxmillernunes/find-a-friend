@@ -1,4 +1,3 @@
-import { CreateOrgUseCase } from '@/use-case/create-org'
 import { makeCreateOrgUseCase } from '@/use-case/factories/make-create-org-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'

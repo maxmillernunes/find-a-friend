@@ -46,6 +46,13 @@ enum LevelEnergy {
   VERY_HIGH
 }
 
+enum LevelIndependency {
+  LOW
+  MEDIUM
+  HIGH
+  VERY_HIGH
+}
+
 enum PetSize {
   VERY_SMALL
   SMALL
@@ -55,17 +62,18 @@ enum PetSize {
 }
 
 model Pet {
-  id                   String      @id @default(uuid())
+  id                   String            @id @default(uuid())
   name                 String
-  description          String
-  levelEnergy          LevelEnergy @map("level_energy")
-  environmentType      String      @map("environment_type")
+  description          String?
+  levelEnergy          LevelEnergy       @map("level_energy")
+  levelIndependency    LevelIndependency @map("level_independency")
+  environmentType      String            @map("environment_type")
   size                 PetSize
   latitude             Decimal
   longitude            Decimal
-  adoptionRequirements String      @map("adoption_requirements")
-  createdAt            DateTime    @default(now()) @map("created_at")
-  updatedAt            DateTime?   @updatedAt @map("updated_at")
+  adoptionRequirements String            @map("adoption_requirements")
+  createdAt            DateTime          @default(now()) @map("created_at")
+  updatedAt            DateTime?         @updatedAt @map("updated_at")
 
   org         Org          @relation(fields: [orgId], references: [id])
   orgId       String       @map("org_id")
