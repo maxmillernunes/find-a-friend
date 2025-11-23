@@ -1,7 +1,8 @@
 import type { FastifyInstance } from 'fastify'
+import { verifyJWT } from '@/http/middlewares/verify-jwt'
 import { create } from './create'
 import { fetch } from './fetch'
-import { verifyJWT } from '@/http/middlewares/verify-jwt'
+import { getPetById } from './get-pet-by-id'
 
 export async function petsRoutes(app: FastifyInstance) {
   app.post(
@@ -13,4 +14,5 @@ export async function petsRoutes(app: FastifyInstance) {
   )
 
   app.get('/pets', fetch)
+  app.get('/pets/:petId', getPetById)
 }

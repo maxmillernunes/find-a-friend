@@ -16,9 +16,9 @@ export async function fetch(request: FastifyRequest, reply: FastifyReply) {
     request.query
   )
 
-  const createPetUseCase = makeFetchPetsUseCase()
+  const fetchPetsUseCase = makeFetchPetsUseCase()
 
-  const pets = await createPetUseCase.execute({
+  const pets = await fetchPetsUseCase.execute({
     city,
     age,
     levelEnergy,
