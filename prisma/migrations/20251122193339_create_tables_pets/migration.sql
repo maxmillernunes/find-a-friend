@@ -2,7 +2,13 @@
 CREATE TYPE "LevelEnergy" AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'VERY_HIGH');
 
 -- CreateEnum
+CREATE TYPE "LevelIndependency" AS ENUM ('LOW', 'MEDIUM', 'HIGH', 'VERY_HIGH');
+
+-- CreateEnum
 CREATE TYPE "PetSize" AS ENUM ('VERY_SMALL', 'SMALL', 'MEDIUM', 'MAXI', 'GIANT');
+
+-- CreateEnum
+CREATE TYPE "PetAge" AS ENUM ('PUPPY', 'ADULT');
 
 -- CreateTable
 CREATE TABLE "orgs" (
@@ -27,7 +33,7 @@ CREATE TABLE "org_address" (
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,
     "cep" TEXT NOT NULL,
-    "complement" TEXT NOT NULL,
+    "complement" TEXT,
     "org_id" TEXT NOT NULL,
 
     CONSTRAINT "org_address_pkey" PRIMARY KEY ("id")
@@ -37,12 +43,15 @@ CREATE TABLE "org_address" (
 CREATE TABLE "pets" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
+    "description" TEXT,
+    "age" "PetAge" NOT NULL,
     "level_energy" "LevelEnergy" NOT NULL,
+    "level_independency" "LevelIndependency" NOT NULL,
     "environment_type" TEXT NOT NULL,
     "size" "PetSize" NOT NULL,
     "latitude" DECIMAL(65,30) NOT NULL,
     "longitude" DECIMAL(65,30) NOT NULL,
+    "adopted" BOOLEAN NOT NULL DEFAULT false,
     "adoption_requirements" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
@@ -72,6 +81,9 @@ CREATE TABLE "new_fathers" (
 
     CONSTRAINT "new_fathers_pkey" PRIMARY KEY ("id")
 );
+
+-- CreateIndex
+CREATE UNIQUE INDEX "orgs_org_name_key" ON "orgs"("org_name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "orgs_email_key" ON "orgs"("email");

@@ -1,10 +1,10 @@
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model Org {
@@ -61,16 +61,23 @@ enum PetSize {
   GIANT
 }
 
+enum PetAge {
+  PUPPY
+  ADULT
+}
+
 model Pet {
   id                   String            @id @default(uuid())
   name                 String
   description          String?
+  age                  PetAge
   levelEnergy          LevelEnergy       @map("level_energy")
   levelIndependency    LevelIndependency @map("level_independency")
   environmentType      String            @map("environment_type")
   size                 PetSize
   latitude             Decimal
   longitude            Decimal
+  adopted              Boolean           @default(false)
   adoptionRequirements String            @map("adoption_requirements")
   createdAt            DateTime          @default(now()) @map("created_at")
   updatedAt            DateTime?         @updatedAt @map("updated_at")

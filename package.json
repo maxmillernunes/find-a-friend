@@ -3,27 +3,31 @@
   "version": "1.0.0",
   "description": "",
   "main": "",
+  "type": "module",
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
-    "start": "node dist/server.mjs",
+    "start": "node dist/server.js",
     "build": "tsup-node"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^24.5.2",
-    "prisma": "^6.17.1",
+    "@types/node": "^24.10.1",
+    "@types/pg": "^8.15.6",
+    "prisma": "^7.0.0",
     "tsup": "^8.5.0",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   },
   "dependencies": {
     "@fastify/jwt": "^10.0.0",
-    "@prisma/client": "^6.17.1",
+    "@prisma/adapter-pg": "^7.0.0",
+    "@prisma/client": "^7.0.0",
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.3",
     "fastify": "^5.6.1",
+    "pg": "^8.16.3",
     "zod": "^4.1.12"
   }
 }
