@@ -1,4 +1,4 @@
-import type { Org, Prisma } from '@prisma/client'
+import type { Org, Prisma } from '@prisma-client'
 import type { OrgsRepository } from '../orgs-repository'
 import { prisma } from '@/lib/prisma'
 

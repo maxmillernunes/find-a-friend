@@ -1,9 +1,16 @@
 import type { FastifyInstance } from 'fastify'
-import { create } from './cerate'
+import { create } from './create'
+import { fetch } from './fetch'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
 
 export async function petsRoutes(app: FastifyInstance) {
-  app.addHook('onRequest', verifyJWT)
+  app.post(
+    '/pets',
+    {
+      onRequest: [verifyJWT],
+    },
+    create
+  )
 
-  app.post('/pets', create)
+  app.get('/pets', fetch)
 }

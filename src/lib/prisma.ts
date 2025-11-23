@@ -1,6 +1,9 @@
 import { env } from '@/env'
-import { PrismaClient } from '@prisma/client'
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '@prisma-client'
 
-export const prisma = new PrismaClient({
-  log: env.NODE_ENV === 'dev' ? ['query'] : [],
-})
+const connectionString = env.DATABASE_URL
+
+const adapter = new PrismaPg({ connectionString })
+
+export const prisma = new PrismaClient({ adapter })

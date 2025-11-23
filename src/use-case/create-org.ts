@@ -1,5 +1,5 @@
 import { hash } from 'bcryptjs'
-import type { Org } from '@prisma/client'
+import type { Org } from '@prisma-client'
 import type { OrgsRepository } from '@/repositories/orgs-repository'
 import { PASSWORD_ROUNDS } from '@/shared/utils/constants'
 import type { OrgAddressesRepository } from '@/repositories/org-addresses-repository'

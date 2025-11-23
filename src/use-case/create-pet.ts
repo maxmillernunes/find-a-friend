@@ -3,14 +3,16 @@ import type {
   LevelEnergy,
   LevelIndependency,
   Pet,
+  PetAge,
   PetSize,
-} from '@prisma/client'
+} from '@prisma-client'
 import { PetAlreadyExistsError } from './errors/pet-already-exists-error'
 
 interface CreatePetUseCaseRequest {
   orgId: string
   name: string
   description: string
+  age: PetAge
   levelEnergy: LevelEnergy
   levelIndependency: LevelIndependency
   environmentType: string
@@ -31,6 +33,7 @@ export class CreatePetUseCase {
     orgId,
     adoptionRequirements,
     description,
+    age,
     environmentType,
     latitude,
     levelEnergy,
@@ -56,6 +59,7 @@ export class CreatePetUseCase {
       name,
       size,
       description,
+      age,
     })
 
     return { pet }
