@@ -1,7 +1,7 @@
 import type { OrgsRepository } from '@/repositories/orgs-repository'
 import { OrgWrongCredentialsError } from './errors/org-wrong-credentials-error'
 import { compare } from 'bcryptjs'
-import type { Org } from '@prisma-client'
+import type { Org } from '@/prisma-client'
 
 interface AuthenticateOrgUseCaseRequest {
   email: string

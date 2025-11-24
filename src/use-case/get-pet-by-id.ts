@@ -1,5 +1,5 @@
 import type { PetsRepository } from '@/repositories/pets-repository'
-import type { Pet } from '@prisma-client'
+import type { Pet } from '@/prisma-client'
 import { PetDoesNotExistsError } from './errors/pet-does-not-exists-error'
 
 interface GetPetByIdUseCaseRequest {

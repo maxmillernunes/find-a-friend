@@ -1,5 +1,10 @@
 import { makeFetchPetsUseCase } from '@/use-case/factories/make-fetch-pet-use-case'
-import { LevelEnergy, LevelIndependency, PetAge, PetSize } from '@prisma-client'
+import {
+  LevelEnergy,
+  LevelIndependency,
+  PetAge,
+  PetSize,
+} from '@/prisma-client'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
 

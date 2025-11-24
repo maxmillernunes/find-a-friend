@@ -1,13 +1,19 @@
-import { makeCreatePetUseCase } from '@/use-case/factories/make-create-pet-use-case'
-import { LevelEnergy, LevelIndependency, PetAge, PetSize } from '@prisma-client'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
+import {
+  LevelEnergy,
+  LevelIndependency,
+  PetAge,
+  PetSize,
+} from '@/prisma-client'
+import { makeCreatePetUseCase } from '@/use-case/factories/make-create-pet-use-case'
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
   const createPetSchema = z.object({
     name: z.string(),
     description: z.string(),
     age: z.enum(PetAge),
+    orgAddressId: z.uuid(),
     levelEnergy: z.enum(LevelEnergy),
     levelIndependency: z.enum(LevelIndependency),
     environmentType: z.string(),

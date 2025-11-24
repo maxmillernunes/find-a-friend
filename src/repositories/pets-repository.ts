@@ -5,7 +5,7 @@ import type {
   PetAge,
   PetSize,
   Prisma,
-} from '@prisma-client'
+} from '@/prisma-client'
 
 export interface FindPetsParams {
   city?: string

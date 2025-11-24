@@ -5,7 +5,7 @@ import type {
   Pet,
   PetAge,
   PetSize,
-} from '@prisma-client'
+} from '@/prisma-client'
 
 interface FetchPetsUseCaseRequest {
   city: string

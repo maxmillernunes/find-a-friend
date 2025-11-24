@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma'
-import type { Pet, Prisma } from '@prisma-client'
+import type { Pet, Prisma } from '@/prisma-client'
 import type { FindPetsParams, PetsRepository } from '../pets-repository'
 
 export class PrismaPetsRepository implements PetsRepository {
@@ -35,12 +35,8 @@ export class PrismaPetsRepository implements PetsRepository {
         levelEnergy,
         levelIndependency,
         size,
-        org: {
-          org_address: {
-            every: {
-              city: city,
-            },
-          },
+        orgAddress: {
+          city,
         },
       },
     })
@@ -54,11 +50,8 @@ export class PrismaPetsRepository implements PetsRepository {
         id: petId,
       },
       include: {
-        org: {
-          include: {
-            org_address: true,
-          },
-        },
+        org: true,
+        orgAddress: true,
       },
     })
 

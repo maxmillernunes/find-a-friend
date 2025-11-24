@@ -5,11 +5,12 @@ import type {
   Pet,
   PetAge,
   PetSize,
-} from '@prisma-client'
+} from '@/prisma-client'
 import { PetAlreadyExistsError } from './errors/pet-already-exists-error'
 
 interface CreatePetUseCaseRequest {
   orgId: string
+  orgAddressId: string
   name: string
   description: string
   age: PetAge
@@ -31,6 +32,7 @@ export class CreatePetUseCase {
 
   async execute({
     orgId,
+    orgAddressId,
     adoptionRequirements,
     description,
     age,
@@ -50,6 +52,7 @@ export class CreatePetUseCase {
 
     const pet = await this.petsRepository.create({
       orgId,
+      orgAddressId,
       adoptionRequirements,
       environmentType,
       latitude,

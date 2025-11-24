@@ -17,8 +17,8 @@ model Org {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
-  pets        Pet[]
-  org_address OrgAddress[]
+  pets          Pet[]
+  org_addresses OrgAddress[]
 
   @@map("orgs")
 }
@@ -35,6 +35,8 @@ model OrgAddress {
 
   org   Org    @relation(fields: [orgId], references: [id])
   orgId String @map("org_id")
+
+  pets Pet[]
 
   @@map("org_address")
 }
@@ -82,8 +84,12 @@ model Pet {
   createdAt            DateTime          @default(now()) @map("created_at")
   updatedAt            DateTime?         @updatedAt @map("updated_at")
 
-  org         Org          @relation(fields: [orgId], references: [id])
-  orgId       String       @map("org_id")
+  org   Org    @relation(fields: [orgId], references: [id])
+  orgId String @map("org_id")
+
+  orgAddress   OrgAddress @relation(fields: [orgAddressId], references: [id])
+  orgAddressId String     @map("org_address_id")
+
   pet_images  PetImages[]
   new_fathers NewFathers[]
 
