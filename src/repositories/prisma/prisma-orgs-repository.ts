@@ -30,7 +30,7 @@ export class PrismaOrgsRepository implements OrgsRepository {
         o.*
       FROM
         orgs AS o
-      inner join org_address oa on o.id = oa.org_id
+      INNER JOIN org_address oa ON o.id = oa.org_id
       WHERE (6371 * acos(
           cos(radians(${latitude})) * cos(radians(oa.latitude)) *
           cos(radians(oa.longitude) - radians(${longitude})) +

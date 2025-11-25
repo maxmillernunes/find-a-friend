@@ -6,9 +6,8 @@
 - [x] Deve ser possível visualizar detalhes de um pet para adoção
 - [x] Deve ser possível se cadastrar como uma ORG
 - [x] Deve ser possível realizar login como uma ORG
-- [] Deve ser possível listar orgs próximas do usuário
+- [x] Deve ser possível listar orgs próximas do usuário
 - [] Deve ser possível fazer upload das fotos dos pets
-- [] Deve ser possível a org registrar a adoção
 
 ### Regras de negócio
 
