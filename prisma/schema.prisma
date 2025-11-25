@@ -31,6 +31,8 @@ model OrgAddress {
   city         String
   state        String
   cep          String
+  latitude     Decimal
+  longitude    Decimal
   complement   String?
 
   org   Org    @relation(fields: [orgId], references: [id])
@@ -77,8 +79,6 @@ model Pet {
   levelIndependency    LevelIndependency @map("level_independency")
   environmentType      String            @map("environment_type")
   size                 PetSize
-  latitude             Decimal
-  longitude            Decimal
   adopted              Boolean           @default(false)
   adoptionRequirements String            @map("adoption_requirements")
   createdAt            DateTime          @default(now()) @map("created_at")

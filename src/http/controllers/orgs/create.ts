@@ -17,6 +17,12 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
       state: z.string(),
       cep: z.string(),
       complement: z.string().optional(),
+      latitude: z.number().refine((value) => {
+        return Math.abs(value) <= 90
+      }),
+      longitude: z.number().refine((value) => {
+        return Math.abs(value) <= 180
+      }),
     }),
   })
 
