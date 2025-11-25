@@ -18,8 +18,6 @@ interface CreatePetUseCaseRequest {
   levelIndependency: LevelIndependency
   environmentType: string
   size: PetSize
-  latitude: number
-  longitude: number
   adoptionRequirements: string
 }
 
@@ -37,10 +35,8 @@ export class CreatePetUseCase {
     description,
     age,
     environmentType,
-    latitude,
     levelEnergy,
     levelIndependency,
-    longitude,
     name,
     size,
   }: CreatePetUseCaseRequest): Promise<CreatePetUseCaseResponse> {
@@ -55,10 +51,8 @@ export class CreatePetUseCase {
       orgAddressId,
       adoptionRequirements,
       environmentType,
-      latitude,
       levelEnergy,
       levelIndependency,
-      longitude,
       name,
       size,
       description,

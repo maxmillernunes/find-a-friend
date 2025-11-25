@@ -18,6 +18,8 @@ interface CreateOrgUseCaseRequest {
     city: string
     state: string
     cep: string
+    latitude: number
+    longitude: number
     complement?: string
   }
 }
@@ -63,8 +65,17 @@ export class CreateOrgUseCase {
       phone,
     })
 
-    const { cep, city, neighborhood, number, state, street, complement } =
-      address
+    const {
+      cep,
+      city,
+      neighborhood,
+      number,
+      state,
+      street,
+      complement,
+      latitude,
+      longitude,
+    } = address
 
     await this.orgAddressesRepository.create({
       cep,
@@ -74,6 +85,8 @@ export class CreateOrgUseCase {
       number,
       state,
       street,
+      latitude,
+      longitude,
       orgId: org.id,
     })
 
