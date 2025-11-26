@@ -1,6 +1,7 @@
 import z from 'zod'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { makeFetchNearbyOrgsUseCase } from '@/use-case/factories/make-fetch-nearby-orgs-use-case'
+import { PresenterOrgMapper } from '../presenters/org-mapper'
 
 export async function nearby(request: FastifyRequest, reply: FastifyReply) {
   const createQuerySchema = z.object({
@@ -17,11 +18,13 @@ export async function nearby(request: FastifyRequest, reply: FastifyReply) {
 
   const fetchNearbyOrgUseCase = makeFetchNearbyOrgsUseCase()
 
-  const { orgs } = await fetchNearbyOrgUseCase.execute({
+  const result = await fetchNearbyOrgUseCase.execute({
     page,
     userLatitude: latitude,
     userLongitude: longitude,
   })
 
-  return reply.status(200).send({ orgs })
+  const orgs = result.orgs.map(PresenterOrgMapper.toDomain)
+
+  return reply.status(200).send({ orgs: result.orgs })
 }

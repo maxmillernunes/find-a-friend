@@ -87,11 +87,10 @@ model Pet {
   org   Org    @relation(fields: [orgId], references: [id])
   orgId String @map("org_id")
 
-  orgAddress   OrgAddress @relation(fields: [orgAddressId], references: [id])
+  org_address  OrgAddress @relation(fields: [orgAddressId], references: [id])
   orgAddressId String     @map("org_address_id")
 
-  pet_images  PetImages[]
-  new_fathers NewFathers[]
+  pet_images PetImages[]
 
   @@map("pets")
 }
@@ -107,16 +106,4 @@ model PetImages {
   petId String @map("pet_id")
 
   @@map("pet_images")
-}
-
-model NewFathers {
-  id    String @id @default(uuid())
-  name  String
-  email String @unique
-  phone String
-
-  pet   Pet    @relation(fields: [petId], references: [id])
-  petId String @map("pet_id")
-
-  @@map("new_fathers")
 }

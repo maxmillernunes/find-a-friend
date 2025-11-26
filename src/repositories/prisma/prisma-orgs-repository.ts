@@ -27,7 +27,13 @@ export class PrismaOrgsRepository implements OrgsRepository {
   }: FindManyNearbyParams): Promise<Org[]> {
     const orgs = await prisma.$queryRaw<Org[]>`
       SELECT
-        o.*
+        o.id,
+        o.owner,
+        o.org_name as orgName,
+        o.email,
+        o.phone,
+        o.created_at as createdAt,
+        o.updated_at as updatedAt
       FROM
         orgs AS o
       INNER JOIN org_address oa ON o.id = oa.org_id

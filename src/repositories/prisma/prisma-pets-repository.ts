@@ -35,9 +35,12 @@ export class PrismaPetsRepository implements PetsRepository {
         levelEnergy,
         levelIndependency,
         size,
-        orgAddress: {
+        org_address: {
           city,
         },
+      },
+      include: {
+        pet_images: true,
       },
     })
 
@@ -51,7 +54,8 @@ export class PrismaPetsRepository implements PetsRepository {
       },
       include: {
         org: true,
-        orgAddress: true,
+        org_address: true,
+        pet_images: true,
       },
     })
 

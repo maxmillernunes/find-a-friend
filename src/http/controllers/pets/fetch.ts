@@ -7,6 +7,10 @@ import {
 } from '@/prisma-client'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import z from 'zod'
+import {
+  PresenterFetchPetMapper,
+  type PrismaFetchPetWithRelations,
+} from '../presenters/fetch-pet-mapper'
 
 export async function fetch(request: FastifyRequest, reply: FastifyReply) {
   const querySchema = z.object({
@@ -23,12 +27,18 @@ export async function fetch(request: FastifyRequest, reply: FastifyReply) {
 
   const fetchPetsUseCase = makeFetchPetsUseCase()
 
-  const pets = await fetchPetsUseCase.execute({
+  const results = await fetchPetsUseCase.execute({
     city,
     age,
     levelEnergy,
     levelIndependency,
     size,
+  })
+
+  const pets = results.pets.map((pet) => {
+    return PresenterFetchPetMapper.toDomain(
+      pet as unknown as PrismaFetchPetWithRelations
+    )
   })
 
   return reply.status(200).send(pets)
