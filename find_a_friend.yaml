@@ -1,0 +1,313 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Find a Friend
+meta:
+  id: wrk_715e597717da4482ae84ed49fc7975d0
+  created: 1760296964615
+  modified: 1760296964615
+  description: ""
+collection:
+  - name: orgs
+    meta:
+      id: fld_0a2673a897624c63b784ee51b97b3be4
+      created: 1760296981189
+      modified: 1760296981189
+      sortKey: -1760296981189
+      description: ""
+    children:
+      - url: "{{ _.base_url }}/orgs"
+        name: /orgs
+        meta:
+          id: req_0dcec5a67aa34c149851d31b85908cb7
+          created: 1760296983690
+          modified: 1764030643325
+          isPrivate: false
+          description: ""
+          sortKey: -1760296983690
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"owner": "Maxmiller Nunes",
+            	"orgName": "Sansao salva",
+            	"email": "sansao@gmail.com",
+            	"password": "12345678",
+            	"phone": "88996084061",
+            	"address": {
+            		"street": "Rau Sao Judas Tadeu",
+            		"number": "161",
+            		"neighborhood": "Centro",
+            		"city": "Pereiro",
+            		"state": "CE",
+            		"cep": "6346000",
+            		"latitude": -6.0511893,
+            		"longitude": -38.4534453,
+            		"complement": ""
+            	}
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/orgs/authenticate"
+        name: /orgs/authenticate
+        meta:
+          id: req_c5d7df0fb5664e35b7f385e29c3d467e
+          created: 1762914507067
+          modified: 1764030652290
+          isPrivate: false
+          description: ""
+          sortKey: -1759530302336.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "sansao@gmail.com",
+            	"password": "12345678"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/orgs/nearby"
+        name: /orgs/nearby
+        meta:
+          id: req_bb67dcc416b74de282faa3a1a91319e1
+          created: 1764030636281
+          modified: 1764031661729
+          isPrivate: false
+          description: ""
+          sortKey: -1759913643013.25
+        method: GET
+        parameters:
+          - name: latitude
+            value: "-6.0511893"
+            description: ""
+            disabled: false
+          - name: longitude
+            value: "-38.4534453"
+            description: ""
+            disabled: false
+          - name: page
+            value: "1"
+            description: ""
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: pets
+    meta:
+      id: fld_231ae8be02e546fa9161d639b3f69218
+      created: 1763002506235
+      modified: 1763002506235
+      sortKey: -1763002506235
+      description: ""
+    children:
+      - url: "{{ _.base_url }}/pets"
+        name: /pets
+        meta:
+          id: req_c6e00487483147b796de0d1dd143a645
+          created: 1763002512452
+          modified: 1764301003579
+          isPrivate: false
+          description: ""
+          sortKey: -1763003154372
+        method: POST
+        body:
+          mimeType: application/json
+          text: >-
+            {
+            	"name": "Luna",
+            	"description": "Cachorra carinhosa e ativa, ótima com crianças e outros animais.",
+            	"age": "ADULT",
+            	"orgAddressId": "ec78867f-6b45-4577-b023-51cc9079d34d",
+            	"levelEnergy": "HIGH",
+            	"levelIndependency": "MEDIUM",
+            	"environmentType": "Apartamento com varanda",
+            	"size": "MEDIUM",
+            	"adoptionRequirements": "Visita prévia, contrato de adoção e comprovante de residência."
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_c5d7df0fb5664e35b7f385e29c3d467e',
+            'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/pets"
+        name: /pets
+        meta:
+          id: req_3ec615c6d52b40dea043d9fe6995705d
+          created: 1763406500918
+          modified: 1764122021236
+          isPrivate: false
+          description: ""
+          sortKey: -1761940787783
+        method: GET
+        parameters:
+          - name: age
+            value: PUPPY
+            description: ""
+            disabled: true
+          - name: city
+            value: Pereiro
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        authentication:
+          type: bearer
+          disabled: true
+          token: "{% response 'body', 'req_c5d7df0fb5664e35b7f385e29c3d467e',
+            'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.base_url }}/pets/:petId"
+        name: /pets/:petId
+        meta:
+          id: req_5b23626008cf41a0834f94d9751477e9
+          created: 1763864137420
+          modified: 1764301020592
+          isPrivate: false
+          description: ""
+          sortKey: -1761409604488.5
+        method: GET
+        parameters:
+          - name: age
+            value: PUPPY
+            description: ""
+            disabled: true
+          - name: city
+            value: Pereiro
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.0.0
+        authentication:
+          type: bearer
+          disabled: true
+          token: "{% response 'body', 'req_c5d7df0fb5664e35b7f385e29c3d467e',
+            'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+        pathParameters:
+          - name: petId
+            value: 1300f4ba-0f3c-42ee-8252-2b924368c880
+      - url: "{{ _.base_url }}/pets/:petId/files"
+        name: /pets/files
+        meta:
+          id: req_0435a401469447edb9deed8a45c904b3
+          created: 1764122004296
+          modified: 1764301085000
+          isPrivate: false
+          description: ""
+          sortKey: -1762471971077.5
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - name: petImage
+              value: ""
+              description: ""
+              disabled: false
+              fileName: /run/user/1000/doc/6b44e937/Screenshot from 2025-10-25 02-29-10.png
+              type: file
+            - name: petImage
+              value: ""
+              description: ""
+              disabled: false
+              fileName: /run/user/1000/doc/6b44e937/Screenshot from 2025-10-25 02-29-10.png
+              type: file
+            - name: petImage
+              value: ""
+              description: ""
+              disabled: false
+              fileName: /run/user/1000/doc/6b44e937/Screenshot from 2025-10-25 02-29-10.png
+              type: file
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.0.0
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_c5d7df0fb5664e35b7f385e29c3d467e',
+            'b64::JC50b2tlbg==::46b', 'when-expired', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+        pathParameters:
+          - name: petId
+            value: 1300f4ba-0f3c-42ee-8252-2b924368c880
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_d9a10fc825b93a9673c5b137010b9b620f7ef140
+    created: 1760296964618
+    modified: 1760296964618
+environments:
+  name: Base Environment
+  meta:
+    id: env_d9a10fc825b93a9673c5b137010b9b620f7ef140
+    created: 1760296964617
+    modified: 1760299308911
+    isPrivate: false
+  data:
+    base_url: http://localhost:3333
