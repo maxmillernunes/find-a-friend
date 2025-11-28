@@ -6,7 +6,7 @@ export class PetDoesNotExistsError extends AppException {
   constructor() {
     super(
       `Pet does not exists`,
-      HttpStatusCodes.CONFLICT,
+      HttpStatusCodes.BAD_REQUEST,
       ErrorsCode.PET_DOES_NOT_EXISTS
     )
   }
