@@ -9,7 +9,7 @@ export type PrismaFetchPetWithRelations = Pet &
   }>
 
 export class PresenterFetchPetMapper {
-  static toDomain(raw: PrismaFetchPetWithRelations) {
+  static toHTTP(raw: PrismaFetchPetWithRelations) {
     const pet = {
       id: raw.id,
       name: raw.name,
@@ -25,7 +25,7 @@ export class PresenterFetchPetMapper {
       orgAddressId: raw.orgAddressId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
-      petImages: raw.pet_images.map(PresenterPetImageMapper.toDomain),
+      petImages: raw.pet_images.map(PresenterPetImageMapper.toHTTP),
     }
 
     return pet

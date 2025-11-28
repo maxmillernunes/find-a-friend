@@ -1,7 +1,7 @@
 import type { Org } from '@/prisma-client'
 
 export class PresenterOrgMapper {
-  static toDomain(raw: Org) {
+  static toHTTP(raw: Org) {
     const org = {
       id: raw.id,
       owner: raw.owner,

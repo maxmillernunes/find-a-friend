@@ -13,7 +13,7 @@ export type PrismaPetDetailsWithRelations = Pet &
   }>
 
 export class PresenterPetDetailsMapper {
-  static toDomain(raw: PrismaPetDetailsWithRelations) {
+  static toHTTP(raw: PrismaPetDetailsWithRelations) {
     const pet = {
       id: raw.id,
       name: raw.name,
@@ -29,9 +29,9 @@ export class PresenterPetDetailsMapper {
       orgAddressId: raw.orgAddressId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
-      org: PresenterOrgMapper.toDomain(raw.org),
-      petImages: raw.pet_images.map(PresenterPetImageMapper.toDomain),
-      orgAddress: PresenterOrgAddressMapper.toDomain(raw.org_address),
+      org: PresenterOrgMapper.toHTTP(raw.org),
+      petImages: raw.pet_images.map(PresenterPetImageMapper.toHTTP),
+      orgAddress: PresenterOrgAddressMapper.toHTTP(raw.org_address),
     }
 
     return pet

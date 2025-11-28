@@ -1,7 +1,7 @@
 import type { OrgAddress } from '@/prisma-client'
 
 export class PresenterOrgAddressMapper {
-  static toDomain(raw: OrgAddress) {
+  static toHTTP(raw: OrgAddress) {
     const orgAddress = {
       id: raw.id,
       street: raw.street,
