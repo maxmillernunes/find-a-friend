@@ -4,7 +4,7 @@ import z from 'zod'
 import {
   PresenterPetDetailsMapper,
   type PrismaPetDetailsWithRelations,
-} from '../presenters/pet-details-mapper'
+} from '../presenters/pet-details.presenter'
 
 export async function getPetById(request: FastifyRequest, reply: FastifyReply) {
   const querySchema = z.object({
@@ -17,7 +17,7 @@ export async function getPetById(request: FastifyRequest, reply: FastifyReply) {
 
   const result = await getPetByIdUseCase.execute({ petId })
 
-  const pet = PresenterPetDetailsMapper.toDomain(
+  const pet = PresenterPetDetailsMapper.toHTTP(
     result.pet as unknown as PrismaPetDetailsWithRelations
   )
 

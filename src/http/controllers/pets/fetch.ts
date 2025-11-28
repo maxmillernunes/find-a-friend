@@ -10,7 +10,7 @@ import z from 'zod'
 import {
   PresenterFetchPetMapper,
   type PrismaFetchPetWithRelations,
-} from '../presenters/fetch-pet-mapper'
+} from '../presenters/fetch-pet.presenter'
 
 export async function fetch(request: FastifyRequest, reply: FastifyReply) {
   const querySchema = z.object({
@@ -36,7 +36,7 @@ export async function fetch(request: FastifyRequest, reply: FastifyReply) {
   })
 
   const pets = results.pets.map((pet) => {
-    return PresenterFetchPetMapper.toDomain(
+    return PresenterFetchPetMapper.toHTTP(
       pet as unknown as PrismaFetchPetWithRelations
     )
   })

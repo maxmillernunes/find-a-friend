@@ -1,19 +1,15 @@
 import type { Pet, Prisma } from '@/prisma-client'
-import { PresenterOrgMapper } from './org-mapper'
-import { PresenterPetImageMapper } from './petImage-mapper'
-import { PresenterOrgAddressMapper } from './org-address-mapper'
+import { PresenterPetImageMapper } from './petImage.presenter'
 
-export type PrismaPetDetailsWithRelations = Pet &
+export type PrismaFetchPetWithRelations = Pet &
   Prisma.PetGetPayload<{
     include: {
-      org: true
       pet_images: true
-      org_address: true
     }
   }>
 
-export class PresenterPetDetailsMapper {
-  static toHTTP(raw: PrismaPetDetailsWithRelations) {
+export class PresenterFetchPetMapper {
+  static toHTTP(raw: PrismaFetchPetWithRelations) {
     const pet = {
       id: raw.id,
       name: raw.name,
@@ -29,9 +25,7 @@ export class PresenterPetDetailsMapper {
       orgAddressId: raw.orgAddressId,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
-      org: PresenterOrgMapper.toHTTP(raw.org),
       petImages: raw.pet_images.map(PresenterPetImageMapper.toHTTP),
-      orgAddress: PresenterOrgAddressMapper.toHTTP(raw.org_address),
     }
 
     return pet
